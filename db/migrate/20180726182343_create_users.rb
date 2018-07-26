@@ -6,7 +6,8 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.text :description, presence: false
       t.string :email, presence: true
       t.integer :age, presence: false
-
+      t.references :city, index: true
+      
       t.timestamps
     end
   end

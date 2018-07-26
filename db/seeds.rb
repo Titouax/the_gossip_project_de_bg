@@ -5,3 +5,61 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+require 'faker'
+
+10.times do |index|
+  City.create(
+    city_name: Faker::Address.city,
+    zip_code: Faker::Address.zip
+
+  )
+end
+
+10.times do |index|
+  User.create(
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    description: Faker::OnePiece.quote,
+    email: Faker::Internet.email('#{first_name}'),
+    age: rand(15..55),
+    city_id: rand(City.first.id..City.last.id)
+  )
+end
+
+10.times do |index|
+  Tag.create(
+    name: Faker::Artist.name,
+  )
+end
+
+20.times do |index|
+  Gossip.create(
+    title: Faker::Book.title,
+    content: Faker::OnePiece.quote,
+    date: Faker::Date.forward(30),
+    user_id: rand(User.first.id..User.last.id),
+    tag_id: rand(Tag.first.id..Tag.last.id)
+  )
+end
+
+10.times do |index|
+  Tag.update(
+    gossip_id: rand(Gossip.first.id..Gossip.last.id)
+  )
+end
+
+20.times do |index|
+  Comment.create(
+    body: Faker::OnePiece.quote,
+    user_id: rand(User.first.id..User.last.id),
+    gossip_id: rand(Gossip.first.id..Gossip.last.id),
+  )
+end
+
+20.times do |index|
+  Like.create(
+    user_id: rand(User.first.id..User.last.id),
+    gossip_id: rand(Gossip.first.id..Gossip.last.id),
+  )
+end
